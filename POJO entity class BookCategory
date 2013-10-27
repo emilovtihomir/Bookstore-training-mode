@@ -1,0 +1,43 @@
+package bg.softacad.bookstore.entity;
+
+import java.io.Serializable;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.PrimaryKeyJoinColumn;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "BOOK_CATEGORIES")
+@PrimaryKeyJoinColumn(name = "CATEGORYID")
+public class BookCategory implements IPersistent, Serializable{
+
+	private static final long serialVersionUID = -3005312794079805989L;
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "BOOK_CATEGORIES_SEQ_GEN")
+	@SequenceGenerator(name = "BOOK_CATEGORIES_SEQ_GEN",
+			sequenceName = "SEQ_BOOK_CATEGORIES",
+			allocationSize = 1, 
+			initialValue= 1)
+	private long categoryid;
+	
+	@Column(name = "name", nullable = false, length = 100)
+	private String name;
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+	
+	public long getcategoryid() {
+		return categoryid;
+	}
+}
