@@ -1,0 +1,81 @@
+package bg.softacad.bookstore.entity;
+
+import java.io.Serializable;
+import java.util.Date;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.PrimaryKeyJoinColumn;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "READERS")
+@PrimaryKeyJoinColumn(name = "READERID")
+public class Reader implements IPersistent, Serializable{
+
+	private static final long serialVersionUID = -6719476332353008172L;
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "READERS_SEQ_GEN")
+	@SequenceGenerator(	name = "READERS_SEQ_GEN", 
+						sequenceName = "SEQ_READERS",
+						allocationSize = 1, 
+						initialValue= 1)
+	@Column(name = "readerid", nullable = false)
+	private long readerid;
+	
+	@Column(name = "first_name", nullable = false, length = 50)
+	private String firstName;
+	
+	@Column(name = "last_name", nullable = false, length = 50)
+	private String lastName;
+	
+	@Column(name = "cardid", nullable = false, length = 50)
+	private String cardID;
+	
+	@Column(name = "address", nullable = false, length = 150)
+	private String address;
+	
+	@Column(name = "reg_dt", nullable = false)
+	private Date regDt;
+	
+	public String getFirstName() {
+		return firstName;
+	}
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
+	public String getLastName() {
+		return lastName;
+	}
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
+	}
+	public String getCardID() {
+		return cardID;
+	}
+	public void setCardID(String cardID) {
+		this.cardID = cardID;
+	}
+	public String getAddress() {
+		return address;
+	}
+	public void setAddress(String address) {
+		this.address = address;
+	}
+	public Date getRegDt() {
+		return regDt;
+	}
+	public void setRegDt(Date regDt) {
+		this.regDt = regDt;
+	}
+	
+	public long getreaderid() {
+		return readerid;
+	}
+	
+}
