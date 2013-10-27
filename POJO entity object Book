@@ -1,0 +1,126 @@
+package bg.softacad.bookstore.entity;
+
+import java.io.Serializable;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.PrimaryKeyJoinColumn;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
+import javax.persistence.Transient;
+
+@Entity
+@Table(name = "BOOKS")
+@PrimaryKeyJoinColumn(name = "BOOKID")
+public class Book implements IPersistent, Serializable {
+
+	private static final long serialVersionUID = -4610854151752667445L;
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "BOOKS_SEQ_GEN")
+	@SequenceGenerator(name = "BOOKS_SEQ_GEN", 
+			sequenceName = "SEQ_BOOKS",
+			allocationSize = 1, 
+			initialValue= 1)
+	private long bookid;
+	
+	@Column(name = "isbn", nullable = false, length = 17)
+	private String isbn;
+	
+	@Column(name = "title", nullable = false, length = 200)
+	private String title;
+	
+	@Column(name = "quantity", nullable = false)
+	private int quantity;
+	
+	public String getIsbn() {
+		return isbn;
+	}
+
+	public void setIsbn(String isbn) {
+		this.isbn = isbn;
+	}
+
+	public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
+	}
+
+	public int getQuantity() {
+		return quantity;
+	}
+
+	public void setQuantity(int quantity) {
+		this.quantity = quantity;
+	}
+
+	public Author getAuthor() {
+		return author;
+	}
+
+	public void setAuthor(Author author) {
+		this.author = author;
+	}
+
+	public BookCategory getBookCategory() {
+		return bookCategory;
+	}
+
+	public void setBookCategory(BookCategory bookCategory) {
+		this.bookCategory = bookCategory;
+	}
+
+	public long getBookid() {
+		return bookid;
+	}
+
+	@ManyToOne(cascade = { CascadeType.PERSIST, CascadeType.MERGE })
+	@JoinColumn(name = "AUTHORID")
+	private Author author;
+	
+	@ManyToOne(cascade = { CascadeType.PERSIST, CascadeType.MERGE })
+	@JoinColumn(name = "CATEGORYID")
+	private BookCategory bookCategory;
+	
+	@Transient
+	private Long authorid;
+	
+	@Transient
+	private Long categoryid;
+	//private Date publicationYear;
+	//private Date stockDate;
+
+	public Long getAuthorid() {
+		return author.getAuthorid();
+	}
+	
+	public Long getAuthorid2() {
+		return this.authorid;
+	}
+
+
+	public void setAuthorid(Long authorid) {
+		this.authorid = authorid;
+	}
+
+	public Long getCategoryid() {
+		return bookCategory.getcategoryid();
+	}
+	
+	public Long getCategoryid2() {
+		return this.categoryid;
+	}
+
+	public void setCategoryid(Long categoryid) {
+		this.categoryid = categoryid;
+	}
+}
