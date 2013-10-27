@@ -1,0 +1,42 @@
+package bg.softacad.bookstore.entity;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import org.hibernate.annotations.Immutable;
+
+@Entity
+@Immutable
+@Table(name = "V_BOOK_AVAILABILITY")
+public class VAvailability {
+	
+	@Id
+	@Column(name = "bookid")
+	private long bookid;
+	
+	@Column(name = "title", length = 200)
+	private String title;
+	
+	@Column(name = "quantity_ori")
+	private int quantityOri;
+	
+	@Column(name = "quantity_avail")
+	private int quantityAvail;
+	
+	public long getBookid() {
+		return bookid;
+	}
+
+	public String getTitle() {
+		return title;
+	}
+
+	public int getQuantityOri() {
+		return quantityOri;
+	}
+
+	public int getQuantityAvail() {
+		return quantityAvail;
+	}
+}
