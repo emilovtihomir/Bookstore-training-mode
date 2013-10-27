@@ -1,0 +1,95 @@
+package bg.softacad.bookstore.entity;
+
+import java.util.Date;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.PrimaryKeyJoinColumn;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "RENTALS")
+@PrimaryKeyJoinColumn(name = "RENTALID")
+public class Rental implements IPersistent{
+	
+	@Id
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "RENTALS_SEQ_GEN")
+	@SequenceGenerator(	name = "RENTALS_SEQ_GEN", 
+						sequenceName = "SEQ_RENTALS",
+						allocationSize = 1, 
+						initialValue= 1)
+	@Column(name = "rentalid", nullable = false)
+	private long rentalid;
+	
+	@ManyToOne(cascade = { CascadeType.PERSIST, CascadeType.MERGE })
+	@JoinColumn(name = "readerid")
+	private Reader reader;
+	
+	public long getRentalid() {
+		return rentalid;
+	}
+
+	public void setRentalid(long rentalid) {
+		this.rentalid = rentalid;
+	}
+
+	public Reader getReader() {
+		return reader;
+	}
+
+	public void setReader(Reader reader) {
+		this.reader = reader;
+	}
+
+	public Book getBook() {
+		return book;
+	}
+
+	public void setBook(Book book) {
+		this.book = book;
+	}
+
+	public Date getRentalDt() {
+		return rentalDt;
+	}
+
+	public void setRentalDt(Date rentalDt) {
+		this.rentalDt = rentalDt;
+	}
+
+	public Date getReturnDt() {
+		return returnDt;
+	}
+
+	public void setReturnDt(Date returnDt) {
+		this.returnDt = returnDt;
+	}
+
+	public int getIsReturned() {
+		return isReturned;
+	}
+
+	public void setIsReturned(int isReturned) {
+		this.isReturned = isReturned;
+	}
+
+	@ManyToOne(cascade = { CascadeType.PERSIST, CascadeType.MERGE })
+	@JoinColumn(name = "bookid")
+	private Book book;
+	  
+	@Column(name = "date_of_rental", nullable = false)
+	private Date rentalDt;
+
+	@Column(name = "date_of_return", nullable = true)
+	private Date returnDt;
+	
+	@Column(name = "is_returned", nullable = false)
+	private int isReturned;
+}
