@@ -1,0 +1,55 @@
+package bg.softacad.bookstore.entity;
+
+import java.io.Serializable;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.PrimaryKeyJoinColumn;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "AUTHORS")
+@PrimaryKeyJoinColumn(name = "AUTHORID")
+public class Author implements IPersistent, Serializable {
+
+	private static final long serialVersionUID = -1453308919844969425L;
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "AUTHORS_SEQ_GEN")
+	@SequenceGenerator(	name = "AUTHORS_SEQ_GEN", 
+						sequenceName = "SEQ_AUTHORS",
+						allocationSize = 1, 
+						initialValue= 1)
+	@Column(name = "authorid", nullable = false)
+	private long authorid;
+	
+	@Column(name = "first_name", nullable = false, length = 50)
+	private String firstName;
+	
+	@Column(name = "last_name", nullable = false, length = 50)
+	private String lastName;
+
+	public String getFirstName() {
+		return firstName;
+	}
+
+	public void setFirstName(String fName) {
+		this.firstName = fName;
+	}
+
+	public long getAuthorid() {
+		return authorid;
+	}
+
+	public String getLastName() {
+		return lastName;
+	}
+
+	public void setLastName(String lName) {
+		this.lastName = lName;
+	}
+}
